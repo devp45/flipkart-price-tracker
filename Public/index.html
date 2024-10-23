@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Flipkart Product Price Tracker</title>
+  </head>
+  <body>
+    <h1>Flipkart Product Price Tracker</h1>
+    <input type="text" id="productUrl" placeholder="Paste Flipkart product link" />
+    <button onclick="fetchProductDetails()">Fetch Details</button>
+
+    <div id="productDetails"></div>
+
+    <script>
+      function fetchProductDetails() {
+        const productUrl = document.getElementById('productUrl').value;
+
+        fetch(`/fetch-product?url=${productUrl}`)
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('productDetails').innerHTML = `
+              <h2>${data.title}</h2>
+              <p>Price: ${data.price}</p>
+              <p>Description: ${data.description}</p>
+              <p>Reviews: ${data.reviews}</p>
+            `;
+          })
+          .catch(err => console.error('Error:', err));
+      }
+    </script>
+  </body>
+</html>
